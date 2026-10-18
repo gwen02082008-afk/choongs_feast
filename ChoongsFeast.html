@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choongs Feast — Catering & Digital Menu</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream: #f8ead8;
+      --brown: #572218;
+      --gold: #f5a817;
+      --red: #7c171b;
+      --cream-light: #fff6eb;
+      --badge-bg: #f1d8bd;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--brown);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding-top: 64px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .logo-font {
+      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+      font-style: italic;
+      font-weight: 900;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: var(--brown);
+      color: #ffffff;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      text-decoration: none;
+      font-size: 1.5rem;
+      letter-spacing: -0.025em;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .nav-brand .text-white { color: #ffffff; }
+    .nav-brand .text-gold { color: var(--gold); }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 1.5rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .btn-book {
+      background-color: var(--red);
+      color: #ffffff !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .btn-book:hover {
+      background-color: var(--gold) !important;
+      color: var(--brown) !important;
+      transform: translateY(-2px);
+    }
+
+    .mobile-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background-color: var(--brown);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #ffffff;
+      z-index: 999;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      flex-direction: column;
+      gap: 1rem;
+      font-weight: 600;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mobile-menu a:hover {
+      color: var(--gold);
+    }
+
+    .hero-header {
+      padding: 2rem 1rem 3rem;
+      text-align: center;
+      max-width: 64rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Embedded Logo Styling */
+    .hero-logo-container {
+      width: 240px;
+      height: 240px;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-logo-container:hover {
+      transform: scale(1.04);
+    }
+
+    .hero-logo-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 8px 20px rgba(87, 34, 24, 0.15));
+    }
+
+    .hero-tagline {
+      font-size: 0.875rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      color: var(--brown);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-shape {
+      border-radius: 50px 15px 50px 15px;
+      background-color: var(--badge-bg);
+      border: 1px solid #fde68a;
+      color: var(--brown);
+      font-weight: 700;
+      padding: 1rem 1.5rem;
+      font-size: 1.125rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      max-width: 28rem;
+      text-align: center;
+      line-height: 1.375;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--brown);
+    }
+
+    .tag-pill {
+      background-color: rgba(253, 230, 138, 0.6);
+      padding: 0.375rem 0.75rem;
+      border-radius: 9999px;
+    }
+
+    .section-container {
+      padding: 3rem 1rem;
+      max-width: 72rem;
+      margin: 0 auto;
+      width: 100%;
+      scroll-margin-top: 5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-title h2 {
+      font-size: 1.875rem;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--brown);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title p {
+      color: rgba(87, 34, 24, 0.8);
+      max-width: 36rem;
+      margin: 0 auto;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .tab-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 9999px;
+      border: 1px solid var(--brown);
+      color: var(--brown);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .tab-btn.active {
+      background-color: var(--red);
+      color: #ffffff;
+      border-color: var(--red);
+      box-shadow: 0 4px 12px rgba(124, 23, 27, 0.25);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .food-card {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #fef3c7;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .food-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-weight: 900;
+      font-size: 1.125rem;
+      color: var(--brown);
+      line-height: 1.25;
+    }
+
+    .card-price {
+      background-color: rgba(245, 168, 23, 0.2);
+      color: var(--brown);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.625rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .card-tagline {
+      font-size: 0.75rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-ingredients {
+      border-top: 1px solid #fef3c7;
+      padding-top: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .ingredients-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .ingredients-list li {
+      font-size: 0.75rem;
+      color: rgba(87, 34, 24, 0.8);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.375rem;
+    }
+
+    .bullet {
+      color: var(--gold);
+      font-size: 0.75rem;
+    }
+
+    .btn-order {
+      width: 100%;
+      margin-top: 0.5rem;
+      background-color: var(--cream-light);
+      border: 1px solid #fcd34d;
+      color: var(--brown);
+      font-weight: 700;
+      padding: 0.5rem;
+      border-radius: 0.75rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      text-align: center;
+    }
+
+    .btn-order:hover {
+      background-color: var(--red);
+      color: #ffffff;
+      border-color: var(--red);
+    }
+
+    .why-us-card {
+      background-color: rgba(241, 216, 189, 0.7);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid #fde68a;
+    }
+
+    .why-us-title {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--brown);
+      margin-bottom: 2rem;
+    }
+
+    .why-us-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .feature-item {
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .feature-icon {
+      font-size: 2.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-text {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--brown);
+    }
+
+    .occasions-card {
+      background-color: var(--red);
+      color: #ffffff;
+      border-radius: 2.5rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .occasions-title {
+      font-size: 1.875rem;
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+
+    .occasions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .occasion-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(4px);
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .occasion-icon {
+      font-size: 1.875rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .occasion-text {
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+
+    .booking-banner {
+      max-width: 56rem;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    .banner-content {
+      background-color: var(--badge-bg);
+      border-left: 8px solid var(--gold);
+      padding: 1.25rem;
+      border-radius: 0 1rem 1rem 0;
+      color: var(--brown);
+      font-size: 0.875rem;
+      line-height: 1.625;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .contact-card {
+      background-color: #ffffff;
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #fef3c7;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .contact-heading {
+      font-size: 2.25rem;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--brown);
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-subheading {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-desc {
+      font-size: 0.875rem;
+      color: rgba(87, 34, 24, 0.8);
+      margin-bottom: 1.5rem;
+      line-height: 1.625;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-weight: 600;
+      color: var(--brown);
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .info-row a {
+      color: var(--brown);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .info-row a:hover {
+      color: var(--red);
+    }
+
+    .form-card {
+      background-color: var(--cream-light);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      border: 1px solid #fef3c7;
+    }
+
+    .form-group {
+      margin-bottom: 0.75rem;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.625rem 0.75rem;
+      font-size: 0.875rem;
+      border-radius: 0.5rem;
+      border: 1px solid #fcd34d;
+      background-color: #ffffff;
+      color: var(--brown);
+      outline: none;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--red);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: var(--red);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.875rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--brown);
+    }
+
+    footer {
+      margin-top: auto;
+      background-color: var(--red);
+      color: #ffffff;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+
+    footer p.subtext {
+      font-size: 0.75rem;
+      font-weight: 400;
+      opacity: 0.8;
+      margin-top: 0.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .occasions-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .col-span-mobile-full {
+        grid-column: span 1;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+      .mobile-btn {
+        display: none;
+      }
+      .hero-logo-container {
+        width: 280px;
+        height: 280px;
+      }
+      .hero-tagline, .hero-tags {
+        font-size: 0.875rem;
+      }
+      .section-title h2 {
+        font-size: 3rem;
+      }
+      .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+      }
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .why-us-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .why-us-title {
+        font-size: 1.875rem;
+      }
+      .occasions-card {
+        padding: 3.5rem 2rem;
+        border-radius: 3.75rem;
+      }
+      .occasions-title {
+        font-size: 3rem;
+      }
+      .occasions-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .contact-card {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 3rem;
+      }
+      .contact-heading {
+        font-size: 3rem;
+      }
+      .banner-content {
+        font-size: 1rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="#" class="nav-brand logo-font">
+      <span class="text-white">Choongs</span>
+      <span class="text-gold">Feast</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#menu">Menu</a>
+      <a href="#why-us">Why Us</a>
+      <a href="#occasions">Occasions</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="btn-book">Book Now</a>
+    </div>
+
+    <button id="mobileMenuBtn" class="mobile-btn" aria-label="Toggle Navigation">
+      <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </nav>
+
+  <div id="mobileMenu" class="mobile-menu">
+    <a href="#menu" class="mobile-link">Menu</a>
+    <a href="#why-us" class="mobile-link">Why Us</a>
+    <a href="#occasions" class="mobile-link">Occasions</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <a href="#contact" class="mobile-link btn-book" style="text-align: center; margin-top: 0.5rem;">Book Now</a>
+  </div>
+
+  <header class="hero-header">
+    <!-- Built-in Choongs Feast SVG Logo Image -->
+    <div class="hero-logo-container">
+      <svg class="hero-logo-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background Circle -->
+        <circle cx="150" cy="150" r="145" fill="#fcf6e8" stroke="#f2d7a2" stroke-width="8"/>
+        <circle cx="150" cy="150" r="132" fill="none" stroke="#ffffff" stroke-width="4"/>
+        
+        <!-- Chef Hat -->
+        <g transform="translate(95, 30)">
+          <path d="M22,35 C10,35 5,22 18,12 C18,0 42,-5 55,8 C68,-5 92,0 92,12 C105,22 100,35 88,35 Z" fill="#ffffff" stroke="#572218" stroke-width="6" stroke-linejoin="round"/>
+          <path d="M22,35 L88,35 L80,55 L30,55 Z" fill="#ffffff" stroke="#572218" stroke-width="6" stroke-linejoin="round"/>
+          <line x1="45" y1="42" x2="65" y2="42" stroke="#572218" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        
+        <!-- Whisk/Sparkles -->
+        <path d="M78 72 L88 82 M72 88 L80 92 M222 72 L212 82 M228 88 L220 92" stroke="#f5a817" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- Text: Choongs -->
+        <text x="150" y="142" font-family="'Trebuchet MS', cursive, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#572218" text-anchor="middle">Choongs</text>
+
+        <!-- Text: Feast -->
+        <text x="150" y="195" font-family="'Trebuchet MS', cursive, sans-serif" font-weight="900" font-style="italic" font-size="48" fill="#f5a817" text-anchor="middle">Feast</text>
+        
+        <!-- Decorative Stars -->
+        <path d="M62 185 L65 192 L72 195 L65 198 L62 205 L59 198 L52 195 L59 192 Z" fill="#f5a817"/>
+        <path d="M238 185 L241 192 L248 195 L241 198 L238 205 L235 198 L228 195 L235 192 Z" fill="#f5a817"/>
+        <path d="M78 205 L80 209 L85 211 L80 213 L78 217 L76 213 L71 211 L76 209 Z" fill="#f5a817"/>
+
+        <!-- Cutlery: Fork & Spoon -->
+        <g stroke="#572218" stroke-width="5" fill="#572218" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Fork -->
+          <path d="M92 230 C110 215 130 210 162 200" fill="none"/>
+          <path d="M92 230 M88 225 L98 233 M94 220 L104 228 M100 216 L110 224"/>
+          <!-- Spoon -->
+          <path d="M208 226 C190 238 165 242 140 248" fill="none"/>
+          <ellipse cx="212" cy="222" rx="12" ry="8" transform="rotate(-25 212 222)"/>
+        </g>
+      </svg>
+    </div>
+
+    <p class="hero-tagline">GOOD FOOD • GREAT MOMENTS</p>
+
+    <div class="badge-shape">
+      Your Trusted Catering Partner<br><span style="color: var(--red);">for Every Occasion</span>
+    </div>
+
+    <div class="hero-tags">
+      <span class="tag-pill">Authentic Flavours</span>
+      <span class="tag-pill">Malaysian Delicacies</span>
+      <span class="tag-pill">Indian Favourites</span>
+      <span class="tag-pill">Western Classics</span>
+    </div>
+  </header>
+
+  <section id="menu" class="section-container">
+    <div class="section-title">
+      <h2>Our Digital Menu</h2>
+      <p>A perfect blend of local & international favourites — made for you with love!</p>
+    </div>
+
+    <div class="filter-container">
+      <button onclick="filterMenu('all', event)" class="tab-btn active">All</button>
+      <button onclick="filterMenu('malaysian', event)" class="tab-btn">Malaysian Delicacies</button>
+      <button onclick="filterMenu('indian', event)" class="tab-btn">Indian Favourites</button>
+      <button onclick="filterMenu('western', event)" class="tab-btn">Western Classics</button>
+    </div>
+
+    <div id="menuGrid" class="menu-grid"></div>
+  </section>
+
+  <section id="why-us" class="section-container">
+    <div class="why-us-card">
+      <h3 class="why-us-title">Why Choose Choongs Feast?</h3>
+      <div class="why-us-grid">
+        <div class="feature-item">
+          <span class="feature-icon">👨‍🍳</span>
+          <span class="feature-text">Delicious & Fresh Food</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🌿</span>
+          <span class="feature-text">Wide Variety of Menus</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">💰</span>
+          <span class="feature-text">Affordable Prices</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🚚</span>
+          <span class="feature-text">Reliable Delivery</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">♡</span>
+          <span class="feature-text">Customizable for Your Needs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="occasions" class="section-container">
+    <div class="occasions-card">
+      <h2 class="occasions-title">Perfect for Any Occasion!</h2>
+      <div class="occasions-grid">
+        <div class="occasion-box">
+          <span class="occasion-icon">🎂</span>
+          <span class="occasion-text">Birthdays</span>
+        </div>
+        <div class="occasion-box">
+          <span class="occasion-icon">👨‍👩‍👧‍👦</span>
+          <span class="occasion-text">Family Gatherings</span>
+        </div>
+        <div class="occasion-box">
+          <span class="occasion-icon">🎓</span>
+          <span class="occasion-text">School Events</span>
+        </div>
+        <div class="occasion-box">
+          <span class="occasion-icon">🏢</span>
+          <span class="occasion-text">Company Functions</span>
+        </div>
+        <div class="occasion-box">
+          <span class="occasion-icon">🎉</span>
+          <span class="occasion-text">and More!</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="booking-banner">
+    <div class="banner-content">
+      📅 <strong>Book up to 24 hours before your occasion!</strong><br>
+      Plan ahead and secure your catering with us at least 24 hours before your event.
+    </div>
+  </div>
+
+  <section id="contact" class="section-container">
+    <div class="contact-card">
+      <div>
+        <h2 class="contact-heading">Book Now!</h2>
+        <p class="contact-subheading">Good Food Brings People Together ♥</p>
+        <p class="contact-desc">
+          Ready to make your event delicious? Contact us directly via phone, email, or social media to place orders or customize your catering menu.
+        </p>
+        
+        <div class="contact-info">
+          <div class="info-row">
+            <span style="font-size: 1.25rem;">☎</span>
+            <a href="tel:+60123456789">+60 12 345 6789</a>
+          </div>
+          <div class="info-row">
+            <span style="font-size: 1.25rem;">✉</span>
+            <a href="mailto:choongsfeast@gmail.com">choongsfeast@gmail.com</a>
+          </div>
+          <div class="info-row">
+            <span style="font-size: 1.25rem;">◎</span>
+            <a href="https://www.instagram.com/choongs_feast" target="_blank">@choongs_feast</a>
+          </div>
+          <div class="info-row">
+            <span style="font-size: 1.25rem;">📍</span>
+            <span>Kuala Lumpur, Malaysia</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <form id="inquiryForm" onsubmit="handleInquiry(event)">
+          <div class="form-group">
+            <input type="text" id="custName" required class="form-input" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <select id="dishSelect" class="form-select">
+              <option value="General Catering Inquiry">Select dish (Optional)</option>
+              <option value="Nasi Lemak">Nasi Lemak (RM 12.00)</option>
+              <option value="Chicken Rice">Chicken Rice (RM 10.00)</option>
+              <option value="Nasi Goreng Kampung">Nasi Goreng Kampung (RM 9.00)</option>
+              <option value="Mee Goreng Mamak">Mee Goreng Mamak (RM 9.00)</option>
+              <option value="Ayam Masak Merah">Ayam Masak Merah (RM 11.00)</option>
+              <option value="Chicken Briyani">Chicken Briyani (RM 16.00)</option>
+              <option value="Grilled Chicken Chop">Grilled Chicken Chop (RM 16.00)</option>
+              <option value="Spaghetti Bolognese">Spaghetti Bolognese (RM 15.00)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea id="eventDetails" rows="3" required class="form-textarea" placeholder="Event date, estimated guests, special requests..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            Send Inquiry via WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Choongs Feast • Freshly Made, Always Delicious!</p>
+    <p class="subtext">Kuala Lumpur, Malaysia</p>
+  </footer>
+
+  <script>
+    const menuData = [
+      {
+        id: 1,
+        title: "Nasi Lemak",
+        price: "RM 12.00",
+        category: "malaysian",
+        tagline: "The heart of Malaysia on a plate.",
+        ingredients: [
+          "Coconut rice",
+          "Sambal (chili paste)",
+          "Fried anchovies (ikan bilis)",
+          "Peanuts",
+          "Boiled egg",
+          "Cucumber"
+        ]
+      },
+      {
+        id: 2,
+        title: "Chicken Rice",
+        price: "RM 10.00",
+        category: "malaysian",
+        tagline: "Simple, yet unforgettable.",
+        ingredients: [
+          "Hainanese chicken",
+          "Fragrant rice",
+          "Ginger & garlic sauce",
+          "Chili sauce",
+          "Cucumber"
+        ]
+      },
+      {
+        id: 3,
+        title: "Nasi Goreng Kampung",
+        price: "RM 9.00",
+        category: "malaysian",
+        tagline: "Smoky, flavourful, just like home.",
+        ingredients: [
+          "Rice",
+          "Egg",
+          "Anchovies (ikan bilis)",
+          "Chili paste",
+          "Vegetables (carrot, cabbage, beans)"
+        ]
+      },
+      {
+        id: 4,
+        title: "Mee Goreng Mamak",
+        price: "RM 9.00",
+        category: "malaysian",
+        tagline: "Spicy, savoury, addictive.",
+        ingredients: [
+          "Yellow noodles",
+          "Prawns / chicken",
+          "Egg",
+          "Vegetables (cabbage, carrot, beans)",
+          "Mamak-style spices & chili paste"
+        ]
+      },
+      {
+        id: 5,
+        title: "Ayam Masak Merah",
+        price: "RM 11.00",
+        category: "malaysian",
+        tagline: "Sweet, spicy, full of flavour.",
+        ingredients: [
+          "Chicken",
+          "Onion",
+          "Tomato sauce",
+          "Chili paste",
+          "Bell peppers",
+          "Mixed spices"
+        ]
+      },
+      {
+        id: 6,
+        title: "Chicken Briyani",
+        price: "RM 16.00",
+        category: "indian",
+        tagline: "Aromatic, rich, satisfying.",
+        ingredients: [
+          "Basmati rice",
+          "Chicken",
+          "Onions",
+          "Tomatoes",
+          "Spices (cinnamon, cardamom, cloves, bay leaf)",
+          "Yogurt"
+        ]
+      },
+      {
+        id: 7,
+        title: "Grilled Chicken Chop",
+        price: "RM 16.00",
+        category: "western",
+        tagline: "Juicy, tender, satisfying.",
+        ingredients: [
+          "Chicken thigh/breast",
+          "Herbs & spices",
+          "Butter",
+          "Fries",
+          "Mix salad (lettuce, tomato, cucumber)",
+          "Black pepper sauce"
+        ]
+      },
+      {
+        id: 8,
+        title: "Spaghetti Bolognese",
+        price: "RM 15.00",
+        category: "western",
+        tagline: "Creamy, cheesy, classic.",
+        ingredients: [
+          "Spaghetti",
+          "Chicken ham / turkey bacon",
+          "Egg yolk",
+          "Parmesan cheese",
+          "Garlic",
+          "Black pepper",
+          "Cream (light)"
+        ]
+      }
+    ];
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+      });
+
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
+
+    function renderMenu(items) {
+      const menuGrid = document.getElementById('menuGrid');
+      if (!menuGrid) return;
+      
+      menuGrid.innerHTML = '';
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "food-card";
+        
+        let ingredientsHtml = '';
+        if (item.ingredients && item.ingredients.length > 0) {
+          ingredientsHtml = item.ingredients
+            .map(ing => '<li><span class="bullet">•</span>' + ing + '</li>')
+            .join('');
+        }
+
+        card.innerHTML = 
+          '<div>' +
+            '<div class="card-header">' +
+              '<h3 class="card-title">' + item.title + '</h3>' +
+              '<span class="card-price">' + item.price + '</span>' +
+            '</div>' +
+            '<p class="card-tagline">"' + item.tagline + '"</p>' +
+            '<div class="card-ingredients">' +
+              '<ul class="ingredients-list">' + ingredientsHtml + '</ul>' +
+            '</div>' +
+          '</div>' +
+          '<button onclick="quickBook(\'' + item.title + '\')" class="btn-order">Order</button>';
+
+        menuGrid.appendChild(card);
+      });
+    }
+
+    function filterMenu(category, e) {
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      if (e && e.target) {
+        e.target.classList.add('active');
+      }
+
+      if (category === 'all') {
+        renderMenu(menuData);
+      } else {
+        const filtered = menuData.filter(item => item.category === category);
+        renderMenu(filtered);
+      }
+    }
+
+    function quickBook(dishTitle) {
+      const dishSelect = document.getElementById('dishSelect');
+      if (dishSelect) dishSelect.value = dishTitle;
+      
+      const contactSection = document.getElementById('contact');
+      if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleInquiry(e) {
+      e.preventDefault();
+      const name = document.getElementById('custName').value;
+      const dish = document.getElementById('dishSelect').value;
+      const details = document.getElementById('eventDetails').value;
+
+      const phone = "60123456789";
+      const message = "Hello Choongs Feast! I would like to inquire about catering.%0A%0A*Name:* " + 
+                      encodeURIComponent(name) + "%0A*Selected Dish/Inquiry:* " + 
+                      encodeURIComponent(dish) + "%0A*Details/Date:* " + 
+                      encodeURIComponent(details);
+
+      window.open("https://wa.me/" + phone + "?text=" + message, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      renderMenu(menuData);
+    });
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      renderMenu(menuData);
+    }
+  </script>
+</body>
+</html>
